@@ -1,0 +1,5 @@
+To install plugins you'll need to install lazy.nvim first.
+You can do that by executing :LazyInstall and restarting neovim.
+
+Useful mappings
+gi -> enter insert mode at last editing position
