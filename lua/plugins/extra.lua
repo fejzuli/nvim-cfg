@@ -41,15 +41,4 @@ return {
             ts.load_extension("fzf")
         end,
     },
-    {
-        enabled = false,
-        "folke/which-key.nvim",
-        version = "1.*",
-        event = "VeryLazy",
-        init = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
-        opts = {},
-    },
 }
