@@ -15,7 +15,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 vim.o.cursorline = true
-vim.o.number = true
+vim.o.relativenumber = true
 vim.o.scrolloff = 10
 vim.o.termguicolors = true
 
@@ -26,6 +26,8 @@ vim.g.maplocalleader = " "
 vim.keymap.set("n", "<Space>", "<NOP>") -- disable default behavior
 
 vim.keymap.set("i", "<S-CR>", "<End><CR>", { desc = "New line from anywhere" })
+vim.keymap.set("i", "<C-CR>", "<Esc>m`o<Esc>``a", { desc = "Place new line below without moving cursor" })
+vim.keymap.set("i", "<S-Space>", "  <Left>", { desc = "Pre-pad, use inside of curly brackets" })
 vim.keymap.set("i", "<C-,>", "<Esc>m`A,<Esc>``a", { desc = "Append \",\" to end of line" })
 vim.keymap.set("i", "<C-;>", "<Esc>m`A;<Esc>``a", { desc = "Append \";\" to end of line" })
 
