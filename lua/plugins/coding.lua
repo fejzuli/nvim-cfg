@@ -38,14 +38,13 @@ return {
         "numToStr/Comment.nvim",
         version = "0.*",
         dependencies = { "nvim-ts-context-commentstring" },
-        event = "VeryLazy",
         keys = {
             { "gcc", desc = "Toggle comment on line" },
             { "gbc", desc = "Toggle block-comment on line" },
             { "gcO", desc = "Add comment on line above" },
             { "gco", desc = "Add comment on line below" },
             { "gcA", desc = "Add comment at end of line" },
-            { "gc", mode = "o", desc = "Toggle comment for motion" },
+            { "gc", mode = { "n", "x" }, desc = "Toggle comment for motion or selection" },
         },
         opts = {},
         config = function(_, opts)
