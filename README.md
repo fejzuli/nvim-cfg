@@ -15,7 +15,7 @@ Leader is bound to `,` and LocalLeader to `<Space>`.
  - `<Leader>fh` find help
  - `<Leader>ff` find files
  - `<Leader>fg` search for pattern in cwd
- - `<Leader>bb` switch buffer
+ - `<Leader><Leader>` switch buffer
  - `-` open file explorer (press again to go up a directory and `<C-c>` to close it)
  - `<C-;>` add ";" to end of line
  - `<C-,>` add "," to end of line
@@ -26,3 +26,4 @@ Leader is bound to `,` and LocalLeader to `<Space>`.
  - `K` inspect word under cursor
  - `gd` go to definition
  - `<LocalLeader>ca` code actions
+ - `<LocalLeader>rn` rename

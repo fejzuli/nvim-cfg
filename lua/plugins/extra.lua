@@ -12,11 +12,12 @@ return {
             },
         },
         keys = {
-            { "<Leader>bb", "<Cmd>Telescope buffers<CR>", desc = "Open buffer" },
+            { "<Leader><Leader>", "<Cmd>Telescope buffers<CR>", desc = "Open buffer" },
             { "<Leader>ff", "<Cmd>Telescope find_files<CR>", desc = "Find files" },
             { "<Leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "Live grep" },
             { "<Leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "Find help" },
             { "<Leader>fk", "<Cmd>Telescope keymaps<CR>", desc = "Find keymap" },
+            { "<Leader>fc", "<Cmd>Telescope commands<CR>", desc = "Find command" },
         },
         opts = {
             defaults = {

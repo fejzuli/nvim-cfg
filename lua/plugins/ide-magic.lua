@@ -140,7 +140,8 @@ return {
                     end
                     map("n", "gd", vim.lsp.buf.definition, "Goto definition")
                     map("n", "K", vim.lsp.buf.hover, "LSP hover")
-                    map({ "n", "v" }, "<Space>ca", vim.lsp.buf.code_action, "Code action")
+                    map({ "n", "v" }, "<LocalLeader>ca", vim.lsp.buf.code_action, "Code action")
+                    map("n", "<LocalLeader>rn", vim.lsp.buf.rename, "LSP rename")
                 end,
             })
         end,
