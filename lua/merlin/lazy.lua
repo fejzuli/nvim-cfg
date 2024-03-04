@@ -8,6 +8,7 @@ function M.setup(opts)
             { "folke/lazy.nvim", version = "*" },
             { import = "plugins" },
         }, opts)
+        vim.keymap.set("n", "<Leader>lz", "<Cmd>Lazy<CR>", { desc = "Open Lazy plugin manager" })
     else
         vim.api.nvim_create_user_command("LazyInstall", function()
             print("installing plugin manager lazy.nvim...")
