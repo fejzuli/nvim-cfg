@@ -29,6 +29,21 @@ return {
         end,
     },
     {
+        "stevearc/conform.nvim",
+        version = "5.*",
+        cmd = "ConformInfo",
+        keys = {
+            {
+                "<leader>fm",
+                function()
+                    require("conform").format({ async = true, lsp_fallback = true })
+                end,
+                desc = "Format code",
+            }
+        },
+        opts = {},
+    },
+    {
         "benknoble/vim-racket",
         version = false,
         lazy = false,
@@ -59,5 +74,10 @@ return {
         lazy = true,
         init = function() vim.g.skip_ts_context_commentstring_module = true end,
         opts = { enable_autocmd = false },
+    },
+    {
+        "neovimhaskell/haskell-vim",
+        version = false,
+        ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
     },
 }

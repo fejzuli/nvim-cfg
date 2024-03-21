@@ -1,5 +1,7 @@
 vim.g.python3_host_prog = "/usr/bin/python3"
 vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
 
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
@@ -48,11 +50,11 @@ vim.keymap.set("n", "<C-e>", "3<C-e>", { desc = "Scroll 3 lines down" })
 vim.keymap.set("n", "<C-y>", "3<C-y>", { desc = "Scroll 3 lines up" })
 
 -- window stuff
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to window below" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to window above" })
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
-vim.keymap.set("n", "<C-CR>", "<C-w>x", { desc = "Swap windows" })
+vim.keymap.set({ "n", "t" }, "<C-j>", "<Cmd>wincmd j<CR>", { desc = "Move to window below" })
+vim.keymap.set({ "n", "t" }, "<C-k>", "<Cmd>wincmd k<CR>", { desc = "Move to window above" })
+vim.keymap.set({ "n", "t" }, "<C-h>", "<Cmd>wincmd h<CR>", { desc = "Move to left window" })
+vim.keymap.set({ "n", "t" }, "<C-l>", "<Cmd>wincmd l<CR>", { desc = "Move to right window" })
+vim.keymap.set({ "n", "t" }, "<C-CR>", "<Cmd>wincmd x<CR>", { desc = "Swap windows" })
 vim.keymap.set("n", "<Left>", "5<C-w><", { desc = "Decrease window width" })
 vim.keymap.set("n", "<Right>", "5<C-w>>", { desc = "Increase window width" })
 vim.keymap.set("n", "<Up>", "5<C-w>+", { desc = "Increase window height" })

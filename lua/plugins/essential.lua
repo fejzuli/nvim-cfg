@@ -16,6 +16,37 @@ return {
         event = "VeryLazy",
         opts = {},
     },
+    {
+        "ecasnovski/mini.surround",
+        version = "*",
+        keys = {
+            { "gz", mode = { "n", "x", "o" } },
+        },
+        opts = {
+            mappings = {
+                add = "gza",
+                delete = "gzd",
+                find = "gzf",
+                find_left = "gzF",
+                highlight = "gzh",
+                replace = "gzr",
+                update_n_lines = "gzn",
+                suffix_last = "l",
+                suffix_next = "n",
+            },
+        },
+    },
+    {
+        "echasnovski/mini.ai",
+        version = "*",
+        keys = {
+            { "a", mode = { "x", "o" } },
+            { "i", mode = { "x", "o" } },
+            { "g[", mode = { "x", "o" } },
+            { "g]", mode = { "x", "o" } },
+        },
+        opts = {},
+    },
     { -- quickly jump around in a buffer
         "ggandor/leap.nvim",
         version = false,
@@ -67,5 +98,15 @@ return {
                 ["gl"] = "actions.refresh",
             },
         },
+    },
+    {
+        "mbbill/undotree",
+        version = "*",
+        keys = {
+            { "<Leader>ut", vim.cmd.UndotreeShow, desc = "Open undo tree" },
+        },
+        config = function()
+            vim.g.undotree_SetFocusWhenToggle = 1
+        end
     },
 }

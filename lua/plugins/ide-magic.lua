@@ -108,6 +108,9 @@ return {
         },
         lazy = false,
         opts = {
+            clangd = {},
+            cmake = {},
+            gdscript = {},
             lua_ls = {
                 settings = {
                     Lua = {
@@ -117,7 +120,9 @@ return {
                     },
                 },
             },
-            racket_langserver = {},
+            racket_langserver = {
+                filetypes = { "racket" },
+            },
             rust_analyzer = {},
         },
         config = function(_, opts)
@@ -139,9 +144,21 @@ return {
                         })
                     end
                     map("n", "gd", vim.lsp.buf.definition, "Goto definition")
+                    map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
                     map("n", "K", vim.lsp.buf.hover, "LSP hover")
-                    map({ "n", "v" }, "<LocalLeader>ca", vim.lsp.buf.code_action, "Code action")
+                    map("n", "gI", vim.lsp.buf.implementation, "List implementations")
+                    -- TOTO find a different keymap <C-k> is used for window navigation
+                    -- map("n", "<C-k>", vim.lsp.buf.signature_help, "Display signature information")
+                    map("n", "<LocalLeader>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
+                    map("n", "<LocalLeader>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
+                    map("n", "<LocalLeader>wl", function()
+                        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                    end, "List workspace folders")
+                    map("n", "<LocalLeader>D", vim.lsp.buf.type_definition, "Jump to type definition")
                     map("n", "<LocalLeader>rn", vim.lsp.buf.rename, "LSP rename")
+                    map({ "n", "v" }, "<LocalLeader>ca", vim.lsp.buf.code_action, "Code action")
+                    map("n", "gr", vim.lsp.buf.references, "List references")
+                    map("n", "<LocalLeader>cl", vim.lsp.codelens.run, "Run CodeLens")
                 end,
             })
         end,
@@ -162,6 +179,31 @@ return {
                 callback = function() vim.diagnostic.disable(0) end,
                 desc = "Conjure Log disable LSP diagnostics",
             })
+        end,
+    },
+    {
+        "mrcjkb/haskell-tools.nvim",
+        version = "3.*",
+        dependencies = { "telescope.nvim" },
+        ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
+        config = function()
+            local ht = require("haskell-tools")
+            local buf = vim.api.nvim_get_current_buf()
+            local map = function(mode, lhs, rhs, desc)
+                vim.keymap.set(mode, lhs, rhs, {
+                    silent = true,
+                    buffer = buf,
+                    desc = desc,
+                })
+            end
+
+            map("n", "<LocalLeader>hs", ht.hoogle.hoogle_signature, "Hoogle search")
+            map("n", "<LocalLeader>ea", ht.lsp.buf_eval_all, "Evaluate all code snippets")
+            map("n", "<LocalLeader>rr", ht.repl.toggle, "Toggle GHCi REPL for current package")
+            map("n", "<LocalLeader>rf", function()
+                ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+            end, "Toggle GHCi REPL for current buffer")
+            map("n", "<LocalLeader>rq", ht.repl.quit, "Close GHCi REPL")
         end,
     },
 }
