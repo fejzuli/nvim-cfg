@@ -42,4 +42,18 @@ return {
             ts.load_extension("fzf")
         end,
     },
+    {
+        "echasnovski/mini.align",
+        version = "*",
+        keys = {
+            { "<Leader>al", mode = { "n", "x" } },
+            { "<Leader>aL", mode = { "n", "x" } },
+        },
+        opts = {
+            mappings = {
+                start = "<Leader>al",
+                start_with_preview = "<Leader>aL",
+            },
+        },
+    },
 }

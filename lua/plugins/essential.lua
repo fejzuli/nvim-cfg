@@ -17,7 +17,7 @@ return {
         opts = {},
     },
     {
-        "ecasnovski/mini.surround",
+        "echasnovski/mini.surround",
         version = "*",
         keys = {
             { "gz", mode = { "n", "x", "o" } },
@@ -35,17 +35,6 @@ return {
                 suffix_next = "n",
             },
         },
-    },
-    {
-        "echasnovski/mini.ai",
-        version = "*",
-        keys = {
-            { "a", mode = { "x", "o" } },
-            { "i", mode = { "x", "o" } },
-            { "g[", mode = { "x", "o" } },
-            { "g]", mode = { "x", "o" } },
-        },
-        opts = {},
     },
     { -- quickly jump around in a buffer
         "ggandor/leap.nvim",

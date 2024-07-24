@@ -1,16 +1,45 @@
 return {
-    { -- theme
-        "EdenEast/nightfox.nvim",
-        version = "*",
-        lazy = false,
-        priority = 1000,
-        opts = {},
-        config = function(_, opts)
-            require("nightfox").setup(opts)
-            vim.cmd("colorscheme carbonfox")
+    -- {
+    --     "fejzuli/arabasta.nvim",
+    --     dev = true,
+    --     priority = 1001,
+    --     init = function()
+    --         vim.keymap.set("n", "<LocalLeader>rl", function()
+    --             vim.cmd("Lazy reload arabasta.nvim")
+    --             vim.cmd("colorscheme arabasta_light")
+    --         end)
+    --         vim.keymap.set("n", "H", "<cmd>Inspect<cr>")
+    --     end,
+    -- },
+    {
+        "fejzuli/rmfireworks.nvim",
+        enabled = false,
+        dev = true,
+        priority = 1001,
+        init = function()
+            vim.keymap.set("n", "<Leader>rl", function()
+                vim.cmd("Lazy reload rmfireworks.nvim")
+                _G.f = require("rmfireworks")
+            end)
+            vim.keymap.set("n", "<Leader>rs", function()
+                vim.cmd("hi clear")
+                vim.cmd("colorscheme catppuccin")
+            end)
+            vim.keymap.set("n", "H", "<cmd>Inspect<cr>")
         end,
     },
-    { -- bufferline
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        init = function()
+            vim.cmd("colorscheme catppuccin")
+        end,
+    },
+    {
+        "p00f/alabaster.nvim",
+    },
+    {
         "nvim-lualine/lualine.nvim",
         version = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -18,8 +47,10 @@ return {
         priority = 900,
         opts = {
             options = {
-                component_separators = { left = "", right = "" },
-                section_separators = { left = "", right = "" },
+                -- component_separators = { left = "", right = "" },
+                -- section_separators = { left = "", right = "" },
+                component_separators = "|",
+                section_separators = "",
                 globalstatus = true,
             },
             sections = {
@@ -66,5 +97,17 @@ return {
                 override_vim_notify = true,
             },
         },
+    },
+    {
+        "echasnovski/mini.hipatterns",
+        version = "0.*",
+        event = "VeryLazy",
+        opts = function()
+            return {
+                highlighters = {
+                    hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+                },
+            }
+        end,
     },
 }

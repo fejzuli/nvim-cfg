@@ -15,7 +15,6 @@ vim.o.breakindent = true
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.o.inccommand = "split"
 
 vim.o.cursorline = true
 vim.o.relativenumber = true
@@ -29,6 +28,7 @@ vim.o.undofile = true
 
 vim.o.splitright = true
 vim.o.splitbelow = true
+vim.o.splitkeep = "screen"
 
 vim.g.c_syntax_for_h = 1
 
@@ -72,8 +72,8 @@ vim.api.nvim_create_user_command("FactoryReset", function()
         vim.fn.system({
             "rm",
             "-rf",
-            vim.fn.stdpath("data"),
-            vim.fn.stdpath("state"),
+            vim.fn.stdpath("data") --[[@as string]],
+            vim.fn.stdpath("state") --[[@as string]],
         })
         require("merlin.util").suggest_restart()
     end
@@ -84,7 +84,7 @@ require("merlin.lazy").setup({
         path = "~/projects/nvim-plugins",
     },
     install = {
-        colorscheme = { "carbonfox", "default" },
+        colorscheme = { "catppuccin", "default" },
     },
     performance = {
         rtp = {

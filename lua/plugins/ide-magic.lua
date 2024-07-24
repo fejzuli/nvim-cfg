@@ -17,7 +17,9 @@ return {
             local lspkind = require("lspkind")
 
             cmp.setup({
-                mapping = cmp.mapping.preset.insert(),
+                mapping = cmp.mapping.preset.insert({
+                    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+                }),
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
                     { name = "luasnip" },
@@ -44,6 +46,10 @@ return {
                             cmdline = "[cmd]",
                         }),
                     }),
+                },
+                preselect = cmp.PreselectMode.None,
+                experimental = {
+                    ghost_text = true,
                 },
             })
             cmp.setup.cmdline({ "/", "?" }, {
@@ -111,6 +117,13 @@ return {
             clangd = {},
             cmake = {},
             gdscript = {},
+            gopls = {
+                settings = {
+                    gopls = {
+                        usePlaceholders = true,
+                    },
+                },
+            },
             lua_ls = {
                 settings = {
                     Lua = {
@@ -124,6 +137,7 @@ return {
                 filetypes = { "racket" },
             },
             rust_analyzer = {},
+            tsserver = {},
         },
         config = function(_, opts)
             require("neodev").setup()
@@ -166,11 +180,13 @@ return {
     {
         "Olical/conjure",
         version = "4.*",
-        ft = { "racket" },
-        init = function()
-            vim.g["conjure#client#racket#stdio#command"] = "racket -I sicp"
-        end,
+        dependencies = { "nvim-treesitter" },
+        ft = { "lua", "racket" },
         config = function()
+            vim.g["conjure#extract#tree_sitter#enabled"] = true
+            vim.g["conjure#client#racket#stdio#command"] = "racket -I sicp"
+            vim.g["conjure#mapping#doc_word"] = "gk"
+
             require("conjure.main").main()
             require("conjure.mapping")["on-filetype"]()
             vim.api.nvim_create_autocmd("BufNewFile", {
@@ -182,28 +198,32 @@ return {
         end,
     },
     {
-        "mrcjkb/haskell-tools.nvim",
-        version = "3.*",
-        dependencies = { "telescope.nvim" },
-        ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
+        "mfussenegger/nvim-jdtls",
+        version = false,
+        ft = { "java" },
         config = function()
-            local ht = require("haskell-tools")
-            local buf = vim.api.nvim_get_current_buf()
-            local map = function(mode, lhs, rhs, desc)
-                vim.keymap.set(mode, lhs, rhs, {
-                    silent = true,
-                    buffer = buf,
-                    desc = desc,
+            local cache_home = vim.env.XDG_CACHE_HOME
+            local config_dir = vim.fs.joinpath(cache_home, "jdtls/config")
+            local workspace_dir = vim.fs.joinpath(cache_home, "jdtls/workspace")
+
+            local start_or_attach = function()
+                local root_dir = require("jdtls.setup").find_root({ "pom.xml", ".git" })
+                local project_name = vim.fs.basename(root_dir)
+
+                require("jdtls").start_or_attach({
+                    cmd = {
+                        "jdtls",
+                        "-configuration", config_dir,
+                        "-data", vim.fs.joinpath(workspace_dir, project_name),
+                    },
+                    root_dir = root_dir,
                 })
             end
 
-            map("n", "<LocalLeader>hs", ht.hoogle.hoogle_signature, "Hoogle search")
-            map("n", "<LocalLeader>ea", ht.lsp.buf_eval_all, "Evaluate all code snippets")
-            map("n", "<LocalLeader>rr", ht.repl.toggle, "Toggle GHCi REPL for current package")
-            map("n", "<LocalLeader>rf", function()
-                ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-            end, "Toggle GHCi REPL for current buffer")
-            map("n", "<LocalLeader>rq", ht.repl.quit, "Close GHCi REPL")
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "java" },
+                callback = start_or_attach,
+            })
         end,
     },
 }
